@@ -1,0 +1,32 @@
+//Approch-1)
+public static long maxSubarraySum(int[] arr, int n) {
+		// write your code here
+        long ans=0;
+        for(int i=0;i<n;i++){
+            for(int j=i;j<n;j++){
+                long sum=0;
+                for(int k=i;k<=j;k++){
+                    sum+=arr[k];
+                }
+                ans=Math.max(sum,ans);
+            }
+            
+        }
+        return ans;
+	}
+
+//Approch-2)
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int msf=Integer.MIN_VALUE;
+        int sum=0;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+            msf=Math.max(msf,sum);
+            if(sum<0){
+                sum=0;
+            }
+        }
+        return msf;
+    }
+}

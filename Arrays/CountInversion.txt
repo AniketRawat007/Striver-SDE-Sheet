@@ -1,0 +1,54 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+     static long count=0;
+    public static long getInversions(long arr[], int n) {
+        // Write your code here.
+        count=0;
+        mergeSort(arr,0,n-1);
+        return count;
+    }
+    
+    public static long[] mergeSort(long[] arr,int lo,int hi){
+        if(lo==hi){
+            long[] barr=new long[1];
+            barr[0]=arr[lo];
+            return barr;
+        }
+        int mid=(lo+hi)/2;
+        long[] left=mergeSort(arr,lo,mid);
+        long[] right=mergeSort(arr,mid+1,hi);
+        long[] merge=mergeTwoSortedArray(left,right);
+        return merge;
+    }
+    public static long[] mergeTwoSortedArray(long[] left,long[] right){
+        int i=0;
+        int j=0;
+        int k=0;
+        long[] merge=new long[left.length+right.length];
+        while(i<left.length && j<right.length){
+            if(left[i]<=right[j]){
+                merge[k]=left[i];
+                i++;
+                k++;
+            }
+            else{
+                count+=(left.length-i);
+                merge[k]=right[j];
+                j++;
+                k++;
+            }
+        }
+        while(i<left.length){
+              merge[k]=left[i];
+                i++;
+                k++;
+        }
+        while(j<right.length){
+               merge[k]=right[j];
+                j++;
+                k++;
+        }
+        return merge;
+    }
+}

@@ -1,0 +1,45 @@
+import java.util.ArrayList;
+
+public class Solution {
+
+    public static int[] missingAndRepeating(ArrayList<Integer> arr, int n) {
+        // Write your code hereint ans=0;
+        int[] res=new int[2];
+        int ans=0;
+   for(int i=0;i<arr.size();i++){
+       ans=ans^arr.get(i);
+       ans=ans^(i+1);
+   }
+   int rsbm=(ans&-ans);
+   int set1=0;
+   int set2=0;
+   for(int val:arr){
+       if((val&rsbm)==0){
+           set1=set1^val;
+       }
+       else{
+           set2=set2^val;
+       }
+   }
+ for(int i = 1 ; i <= arr.size(); i++){
+       if((rsbm & i) == 0){
+          set1 ^= i;
+       }else{
+           set2 ^= i;
+       }
+   }
+       for(int val:arr){
+           if(val==set1){
+               res[0]=set2;
+               res[1]=set1;
+               break;
+           }
+           if(val==set2){
+               res[0]=set1;
+               res[1]=set2;
+               break;
+           }
+       }
+        return res;
+    }
+}

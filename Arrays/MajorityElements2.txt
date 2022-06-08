@@ -1,0 +1,72 @@
+//Approch-1)`````````````````````````````````````````````````````````
+
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution 
+{
+    public static ArrayList<Integer> majorityElementII(ArrayList<Integer> arr) 
+    {
+        // Write your code here.
+        int n=arr.size();
+        ArrayList<Integer> list=new ArrayList<>();
+        HashMap<Integer,Integer> hm=new HashMap<>();
+        for(int val:arr){
+            hm.put(val,hm.getOrDefault(val,0)+1);
+        }
+        for(int key:hm.keySet()){
+            if(hm.get(key)>Math.floor(n/3)){
+                list.add(key);
+            }
+        }
+        
+        return list;
+    }
+}
+// Approch-2````````````````````````````````````````````
+class Solution {
+    public List<Integer> majorityElement(int[] nums) {
+        int num1=-1;
+        int num2=-1;
+        int count1=0;
+        int count2=0;
+        int len=nums.length/3;
+        for(int val:nums){
+            if(num1==val){
+                count1++;
+            }
+            else if(num2==val){
+                count2++;
+            }
+            else if(count1==0){
+                num1=val;
+                count1++;
+            }
+            else if(count2==0){
+                num2=val;
+                count2++;
+            }
+            else{
+                count1--;
+                count2--;
+            }
+        }
+        List<Integer> list=new ArrayList<>();
+        count1=0;
+        count2=0;
+        for(int val:nums){
+            if(val==num1) count1++;
+            else if(val==num2) count2++;
+        }
+        if(count1>len){
+            list.add(num1);
+        }
+        if(count2>len){
+            list.add(num2);
+        }
+        
+        
+        return list;
+    }
+}

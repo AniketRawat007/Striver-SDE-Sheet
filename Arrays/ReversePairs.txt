@@ -1,0 +1,86 @@
+//Approch-1)  O(n^2)
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution 
+{
+    public static int reversePairs(ArrayList<Integer> nums) 
+    {
+        // Write your code here.
+        int nrp=0;
+        for(int i=0;i<nums.size();i++){
+            for(int j=i+1;j<nums.size();j++){
+                if(nums.get(i)>2*nums.get(j)){
+                    nrp++;
+                }
+            }
+        }
+        return nrp;
+    }
+}
+
+//Approch-2) O(n^2)
+
+class Solution {
+    int count=0;
+    public int reversePairs(int[] nums) {
+        count=0;
+        int[] arr=mergeSort(nums,0,nums.length-1);
+        return count;
+    }
+       public int[] mergeSort(int[] arr,int lo,int hi){
+        if(lo==hi){
+            int[] barr=new int[1];
+            barr[0]=arr[lo];
+            return barr;
+        }
+        int mid=(lo+hi)/2;
+        int[] left=mergeSort(arr,lo,mid);
+        int[] right=mergeSort(arr,mid+1,hi);
+        int[] merge=mergeTwoSortedArray(left,right,lo,hi,mid);
+        return merge;
+    }
+    public int[] mergeTwoSortedArray(int[] left,int[] right,int lo,int hi,int mid){
+        int i=0;
+        int j=0;
+        int k=0;
+        while(i<left.length && j<right.length){
+            if(left[i]>2*(long)right[j]){
+                count+=(left.length-i);
+                j++;
+            }
+            else{
+                i++;
+            }
+        }
+        
+        i=0;
+        j=0;
+        int[] merge=new int[left.length+right.length];
+        while(i<left.length && j<right.length){
+            if(left[i]<=right[j]){
+                merge[k]=left[i];
+                i++;
+                k++;
+            }
+            else{
+               
+                merge[k]=right[j];
+                j++;
+                k++;
+            }
+        }
+        while(i<left.length){
+              merge[k]=left[i];
+                i++;
+                k++;
+        }
+        while(j<right.length){
+               merge[k]=right[j];
+                j++;
+                k++;
+        }
+        return merge;
+    }
+}

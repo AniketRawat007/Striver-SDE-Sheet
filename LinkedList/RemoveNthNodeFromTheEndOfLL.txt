@@ -1,0 +1,43 @@
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if(head==null || head.next==null) return null;
+        
+        int count=0;
+        ListNode temp=head;
+        while(temp!=null){
+            count++;
+            temp=temp.next;
+        }
+        if(count-n==0) return head.next;
+        temp=head;
+        for(int i=0;i<count-n-1;i++){
+            temp=temp.next;
+        }
+        temp.next=temp.next.next;
+        return head;
+    }
+}
+
+//Approch-2) Two Pointers `````````````````````````````````````````````````````````
+class Solution {
+ public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode start = new ListNode(0);
+        start.next = head;
+        
+        ListNode p1 = start;
+        ListNode p2 = start;
+        for(int i=1;i<=n;i++){
+            p1=p1.next;
+        }
+     while(p1.next!=null){
+         p1=p1.next;
+         p2=p2.next;
+         
+     }
+     
+     p2.next=p2.next.next;
+     return start.next;
+       
+    }
+}
+

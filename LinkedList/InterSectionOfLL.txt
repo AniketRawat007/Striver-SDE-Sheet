@@ -1,0 +1,68 @@
+//Approch-1) Difference method
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        int size1=0;
+        ListNode temp=headA;
+        while(temp!=null){
+            temp=temp.next;
+            size1++;
+        }
+        int size2=0;
+        temp=headB;
+        while(temp!=null){
+            temp=temp.next;
+            size2++;
+        }
+        int diff=Math.abs(size1-size2);
+        if(size1>size2){
+            for(int i=0;i<diff;i++){
+                headA=headA.next;
+            }
+        }
+        else{
+            for(int i=0;i<diff;i++){
+                headB=headB.next;
+            }
+        }
+        while(headA!=headB){
+            headA=headA.next;
+            headB=headB.next;
+        }
+        return headA;
+    }
+}
+
+
+
+//Approch-2) Floyad Cycle Mathod
+public class Solution {
+    public static ListNode startingNodeOfCycle(ListNode head){
+      if(head==null || head.next==null) return head;
+      
+      ListNode slow=head;
+      ListNode fast=head;
+      while(fast!=null && fast.next!=null){
+          slow=slow.next;
+          fast=fast.next.next;
+          if(fast==slow) break;
+      }
+      if(slow!=fast) return null;
+      slow=head;
+      fast=fast;
+      while(slow!=fast){
+          slow=slow.next;
+          fast=fast.next;
+      }
+      return slow;
+      
+  }
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+       if(headA==null || headB==null) return null;
+        ListNode temp=headA;
+        while(temp.next!=null) temp=temp.next;
+        temp.next=headB;
+        ListNode ans=startingNodeOfCycle(headA);
+        temp.next=null;
+        return ans;
+    }
+}

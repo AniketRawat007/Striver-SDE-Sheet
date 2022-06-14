@@ -1,0 +1,55 @@
+class Solution {
+
+    public int length(ListNode node){
+    ListNode head=node;
+    int count=0;
+    while(head!=null){
+        head=head.next;
+        count++;
+    }
+    return count;
+}
+static ListNode th=null;
+static ListNode tt=null;
+public  void addFirstNode(ListNode node){
+    if(th==null){
+        th=node;
+        tt=node;
+    }
+    else{
+        node.next=th;
+        th=node;
+    }
+}
+public ListNode reverseKGroup(ListNode head, int k) {
+        if(head==null || head.next==null || k<1) return head;
+        ListNode oh=null;
+        ListNode ot=null;
+        int len=length(head);
+        ListNode curr=head;
+        while(curr!=null && len>=k){
+       
+         int size=k;
+         while(size-->0){
+        ListNode forw=curr.next;
+         curr.next=null;
+         addFirstNode(curr);
+         curr=forw;
+         }
+         if(oh==null){
+             oh=th;
+             ot=tt;
+         }
+         else{
+             ot.next=th;
+             ot=tt;
+         }
+         th=null;
+         tt=null;
+         len-=k;
+        }
+        ot.next=curr;
+        return oh;
+    }
+
+}

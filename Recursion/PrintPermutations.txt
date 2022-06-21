@@ -1,0 +1,24 @@
+import java.io.*;
+import java.util.*;
+public class Solution {
+    static List<String> ans=new ArrayList<>();
+    public static List<String> findPermutations(String s) {
+        // Write your code here.
+        ans=new ArrayList<>();
+        printPermutations(s,"");
+        return ans;
+    }
+     public static void printPermutations(String str, String asf) {
+        if(str.length()==0){
+//             System.out.println(asf);
+            ans.add(asf);
+            return;
+        }
+        
+        for(int i=0;i<str.length();i++){
+            char ch=str.charAt(i);
+            String ros=str.substring(0,i)+str.substring(i+1,str.length());
+            printPermutations(ros,asf+ch);
+        }
+    }
+}

@@ -1,0 +1,59 @@
+import java.io.*;
+import java.util.*;
+public class Solution {
+    static ArrayList<ArrayList<Integer>> ans=new ArrayList<>();
+    public static ArrayList<ArrayList<Integer>> solveNQueens(int n) {
+        // Write your code here.
+        ans=new ArrayList<>();
+        int[][] chess=new int[n][n];
+        helper(chess,0,n,0);
+        return ans;
+        
+    }
+    public static void helper(int[][] chess,int qpsf,int tq,int row){
+        if(qpsf==tq){
+             ArrayList<Integer> list=new ArrayList<>();
+            for(int i=0;i<chess.length;i++){
+                
+                for(int j=0;j<chess[0].length;j++){
+                    if(chess[i][j]==0){
+                        
+                        list.add(0);
+                    }
+                    else{
+                        list.add(1);
+                    }
+                }
+
+            }
+            ans.add(new ArrayList<>(list));
+            return;
+        }
+        
+        for(int col=0;col<chess.length;col++){
+            if(chess[row][col]==0 && isQueenSafe(chess,row,col)){
+                chess[row][col]=qpsf+1;
+                helper(chess,qpsf+1,tq,row+1);
+                chess[row][col]=0;
+            }
+        }
+    }
+    public static boolean isQueenSafe(int[][] chess,int row,int col){
+        for(int i=row-1,j=col;i>=0;i--){
+            if(chess[i][j]!=0){
+                return false;
+            }
+        }
+        for(int i=row-1,j=col-1;i>=0 && j>=0;i--,j--){
+            if(chess[i][j]!=0){
+                return false;
+            }
+        }
+         for(int i=row-1,j=col+1;i>=0 && j<chess.length;i--,j++){
+            if(chess[i][j]!=0){
+                return false;
+            }
+        }
+        return true;
+    }
+}

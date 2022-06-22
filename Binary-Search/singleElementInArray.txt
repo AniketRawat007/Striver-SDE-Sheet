@@ -1,0 +1,16 @@
+//Approch-1
+//using Bits--------->
+import java.util.ArrayList;
+
+public class Solution 
+{
+    public static int uniqueElement(ArrayList<Integer> arr) 
+    {
+        //    Write your code here.
+        int ans=0;
+        for(int val:arr){
+            ans=ans^val;
+        }
+        return ans;
+    }
+}

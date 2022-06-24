@@ -1,0 +1,27 @@
+import java.io.*;
+import java.util.*;
+public class Solution {
+    public static graphNode cloneGraph(graphNode node) {
+        // Write your code here.
+        if(node==null) return node;
+        HashMap<Integer,graphNode> visited=new HashMap<>();
+        return helper(node,visited);
+    }
+    public static graphNode helper(graphNode node,HashMap<Integer,graphNode> visited){
+        graphNode nodeClone=new graphNode(node.data);
+        visited.put(node.data,nodeClone);
+        for(graphNode nbr:node.neighbours){
+          if(visited.get(nbr.data)!=null){
+              graphNode nbrClone=visited.get(nbr.data);
+              nodeClone.neighbours.add(nbrClone);
+              
+          }  
+            else{
+              graphNode nbrClone=helper(nbr,visited);
+              nodeClone.neighbours.add(nbrClone);
+                
+            }
+        }
+        return nodeClone;
+    }
+}

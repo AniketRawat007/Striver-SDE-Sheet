@@ -1,0 +1,25 @@
+class Solution {
+    // Function to return Breadth First Traversal of given graph.
+    public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+        // Code here
+        ArrayList<Integer> list=new ArrayList<>();
+        ArrayDeque<Integer> queue=new ArrayDeque<>();
+        queue.add(0);
+        boolean[] visited=new boolean[V];
+        
+        while(queue.size()>0){
+          int rem=queue.remove();
+          
+          if(visited[rem]==true) continue;
+        
+          visited[rem]=true;
+            list.add(rem);
+          for(int nbr:adj.get(rem)){
+              if(visited[nbr]==false){
+                  queue.add(nbr);
+              }
+          }
+        }
+        return list;
+    }
+}

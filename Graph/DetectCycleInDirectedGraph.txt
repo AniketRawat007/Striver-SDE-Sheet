@@ -1,0 +1,38 @@
+// By Using Kahns Algorithm
+
+class Solution {
+    // Function to detect cycle in a directed graph.
+    public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
+        // code here
+        int[] indegree=new int[V];
+        for(int i=0;i<V;i++){
+           for(int nbr:adj.get(i)){
+               indegree[nbr]++;
+           }
+        }
+        
+        ArrayDeque<Integer> queue=new ArrayDeque<>();
+        for(int i=0;i<V;i++){
+            if(indegree[i]==0){
+                queue.add(i);
+            }
+        }
+        
+        int count=0;
+        while(queue.size()>0){
+            int rem=queue.remove();
+            count++;
+            for(int nbr:adj.get(rem)){
+                indegree[nbr]--;
+                if(indegree[nbr]==0){
+                    queue.add(nbr);
+                }
+            }
+        }
+       
+       if(count==V) return false;
+       return true;
+    }
+    
+    
+}

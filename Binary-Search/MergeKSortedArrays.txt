@@ -1,0 +1,63 @@
+//sing Simple Sorting
+
+	public static ArrayList<Integer> mergeKSortedArrays(ArrayList<ArrayList<Integer>> kArrays, int k)
+	{
+		// Write your code here.
+        ArrayList<Integer> list=new ArrayList<>();
+        
+        for(int i=0;i<kArrays.size();i++){
+        for(int val:kArrays.get(i)){
+         list.add(val);   
+        }
+        }
+        Collections.sort(list);
+        return list;
+	}
+
+    //Using PriorityQueue
+
+    import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
+public class Solution 
+{
+      static class Pair implements Comparable<Pair>{
+        int li;
+        int di;
+        int val;
+        Pair(int li,int di,int val){
+            this.li=li;
+            this.di=di;
+            this.val=val;
+        }
+        public int compareTo(Pair o){
+            return this.val-o.val;
+        }
+    }
+	public static ArrayList<Integer> mergeKSortedArrays(ArrayList<ArrayList<Integer>> lists, int k)
+	{
+		// Write your code here.
+          ArrayList<Integer> rv = new ArrayList<>();
+
+      // write your code here
+    PriorityQueue<Pair> pq=new PriorityQueue<>();
+    for(int i=0;i<lists.size();i++){
+        Pair p=new Pair(i,0,lists.get(i).get(0));
+        pq.add(p);   
+    }
+    
+    while(pq.size()>0){
+        Pair rem=pq.peek();
+        pq.remove();
+        rv.add(rem.val);
+        rem.di++;
+        
+        if(rem.di<lists.get(rem.li).size()){
+            rem.val=lists.get(rem.li).get(rem.di);
+            pq.add(rem);
+        }
+        
+    }
+      return rv;
+	}
+}

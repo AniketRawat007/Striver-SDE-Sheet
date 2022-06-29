@@ -1,0 +1,22 @@
+//Approch-1)
+
+class Solution {
+    public String reverseWords(String str) {
+       Stack<String> st=new Stack<>();
+       String[] sarr=str.split(" ");
+        for(String s:sarr){
+            if(s!=""){
+                st.push(s);
+            }
+        }
+        
+        String res="";
+        while(st.size()>1){
+            res+=st.pop()+" ";
+        }
+        res+=st.pop();
+        return res;
+    }
+}
+
+//Approch-2)

@@ -1,3 +1,5 @@
+//Cycle in directed Graph using DFS----------------------->
+
 class Solution {
     // Function to detect cycle in an undirected graph.
     public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
@@ -34,5 +36,41 @@ class Solution {
             }
         }
         return false;
+    }
+}
+
+//Cycle in Undirected Graph using DFS----------------------->
+
+class Solution {
+    // Function to detect cycle in an undirected graph.
+    public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
+        // Code here
+           boolean[] visited=new boolean[V];
+        for(int i=0;i<V;i++){
+            if(visited[i]==false){
+           boolean ans=dfs(V,adj,i,-1,visited);
+           if(ans){
+               return true;
+           }
+            }
+        }
+        return false;
+    }
+    public boolean dfs(int V,ArrayList<ArrayList<Integer>> adj,int src,int parent,boolean[] visited){
+       
+       visited[src]=true;
+       for(int nbr:adj.get(src)){
+           if(!visited[nbr]){
+               if(dfs(V,adj,nbr,src,visited)){
+                   return true;
+               }
+           }
+           else{
+               if(parent!=nbr){
+                   return true;
+               }
+           }
+       }
+       return false;
     }
 }

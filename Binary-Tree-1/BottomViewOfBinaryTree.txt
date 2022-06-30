@@ -1,0 +1,51 @@
+import java.io.*;
+import java.util.*;
+import java.util.ArrayList;
+
+public class Solution {
+    static class Pair{
+        BinaryTreeNode node;
+        int level;
+        Pair(BinaryTreeNode node,int level){
+            this.node=node;
+            this.level=level;
+        }
+    }
+    static ArrayList<Integer> list=new ArrayList<>();
+    public static ArrayList<Integer> bottomView(BinaryTreeNode root) {
+         // Write your code here.         
+         list=new ArrayList<>();
+        if(root==null) return list;
+        helper(root);
+        return list;
+    }
+    public static void helper(BinaryTreeNode root){
+        HashMap<Integer,Integer> hm=new HashMap<>();
+        ArrayDeque<Pair> queue=new ArrayDeque<>();
+        queue.add(new Pair(root,0));
+        int min=0;
+        int max=0;
+        while(queue.size()>0){
+            int sz=queue.size();
+            for(int i=0;i<sz;i++){
+               Pair rem=queue.remove();
+                if(min>rem.level){
+                    min=rem.level;
+                }
+                if(max<rem.level){
+                    max=rem.level;
+                }
+                hm.put(rem.level,rem.node.val);
+                if(rem.node.left!=null){
+                    queue.add(new Pair(rem.node.left,rem.level-1));
+                }
+                 if(rem.node.right!=null){
+                    queue.add(new Pair(rem.node.right,rem.level+1));
+                }
+            }
+        }
+        for(int i=min;i<=max;i++){
+            list.add(hm.get(i));
+        }
+    }
+}

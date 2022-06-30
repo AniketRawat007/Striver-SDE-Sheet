@@ -1,0 +1,18 @@
+import java.io.*;
+import java.util.*;
+public class Solution {
+     static List < Integer > ans;
+    public static List < Integer > getPostOrderTraversal(TreeNode root) {
+    	// Write your code here.
+         ans=new ArrayList<>();
+        helper(root);
+        return ans;
+    }
+       public static void helper(TreeNode root){
+        if(root==null) return;
+     
+        helper(root.left);
+        helper(root.right);
+        ans.add(root.data);
+    }
+}

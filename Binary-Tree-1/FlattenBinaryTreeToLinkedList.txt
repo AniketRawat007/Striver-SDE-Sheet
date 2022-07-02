@@ -1,0 +1,22 @@
+public class Solution 
+{
+    static TreeNode<Integer> prev=null;
+    
+    public static TreeNode<Integer> flattenBinaryTree(TreeNode<Integer> root)
+    {
+        // Write your code here.
+        prev=null;
+          helper(root);
+        return root;
+    }
+    public static void helper(TreeNode<Integer> root){
+         if(root==null) return;
+         helper(root.right);
+        helper(root.left);
+      
+        // prev=root.left;
+        root.left=null;
+        root.right=prev;
+        prev=root;
+    }
+}

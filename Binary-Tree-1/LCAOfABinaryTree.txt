@@ -1,0 +1,25 @@
+public class Solution 
+{
+    static int lca;
+    public static int lowestCommonAncestor(TreeNode<Integer> root, int x, int y) 
+    {
+        //    Write your code here.
+        lca=0;
+        helper(root,x,y);
+        return lca;
+    }
+    public static boolean helper(TreeNode<Integer> root, int x, int y){
+        if(root==null) return false;
+        boolean self=false;
+        if(root.data==x || root.data==y){
+            self=true;
+        }
+        boolean left=helper(root.left,x,y);
+        boolean right=helper(root.right,x,y);
+        if((left&&right)||(left&&self)||(right&&self)){
+           lca=root.data;
+            return true;
+        }
+        return left || right || self;
+    }
+}

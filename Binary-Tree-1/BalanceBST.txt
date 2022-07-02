@@ -1,0 +1,21 @@
+public class Solution {
+    
+    static boolean flag=true;
+	public static boolean isBalancedBT(BinaryTreeNode<Integer> root) {
+		// Write your code here.
+      flag=true;
+        if(root==null) return true;
+//         return helper(root)<0?false:true;
+        helper(root);
+        return flag;
+	}
+    public static int helper(BinaryTreeNode<Integer> root){
+        if(root==null) return 0;
+        int lh=helper(root.left);
+        int rh=helper(root.right);
+        if(Math.abs(lh-rh)>1){
+            flag=false;
+        }
+        return Math.max(lh,rh)+1;
+    }
+}

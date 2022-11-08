@@ -1,0 +1,39 @@
+class Solution {
+    //TC->O((logN) * N)
+    public static int solve(int n, int k, int[] a) {
+        Arrays.sort(a);
+        
+        int ans=0;
+        int low=1;
+        int high=a[n-1]-a[0];
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            int prev=0;
+            int cplaced=0;
+            for(int i=0;i<n;i++){
+                if(i==0){
+                    prev=a[0];
+                    cplaced++;
+                }else{
+                    if(a[i]-prev>=mid){
+                        prev=a[i];
+                        cplaced++;
+                    }
+                }
+                
+                if(cplaced==k){
+                    break;
+                }
+            }
+            if(cplaced==k){
+                ans=mid;
+            }
+            if(cplaced==k){
+                low=mid+1;
+            }else{
+                high=mid-1;
+            }
+        }
+        return ans;
+    }
+}
